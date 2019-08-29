@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+        .box{
+            width: 100vw;
+            height: 100vh;
+            background: red;
+        }
+        .mask{
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            position:fixed;
+            left: -100%;
+            top: 0px;
+            transition: all 0.3s;
+        
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="mask"></div>
+    </div>
+    <script type="text/javascript">
+        var box=document.querySelector(".box")
+        var mask=document.querySelector(".mask")
+        var startX=0;
+        var endX=0;
+        box.ontouchstart=function(e){
+            // console.log("start")
+            // console.log(e)
+            startX=e.touches[0].clientX;
+            endX=0;
+
+        }
+        box.ontouchmove=function(e){
+            // console.log("move")
+            endX=e.touches[0].clientX;
+        }
+        box.ontouchend=function(e){
+            // console.log("end")
+            // console.log(startX,endX)
+            if(endX==0){
+               window.open("2.html","_self")
+                return;
+            }
+            
+           if(startX+30<endX){
+               console.log("右滑")
+               mask.style.left="0px"
+               return;
+           }
+           if(endX+30<startX){
+            mask.style.left="-100%"
+            console.log("左滑")
+           }
+        }
+    </script>
+</body>
+</html>
